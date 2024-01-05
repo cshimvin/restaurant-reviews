@@ -1,5 +1,7 @@
+{% extends "base.html" %}
+
 {% block content %}
-    {% for restaurant in restaurants %}
-    <p>Restaurant: {{ restaurant.restaurant_name }}</p>
+    {% for doc in documents %}
+        <p>Restaurant: {{ doc.name }}</p>
     {% endfor %}
 {% endblock %}

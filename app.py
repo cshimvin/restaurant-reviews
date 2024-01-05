@@ -38,10 +38,10 @@ def index():
     conn = mongo_connect(MONGO_URI)
     coll = conn[MONGO_DBNAME][MONGO_COLLECTION]
     documents = coll.find()
-    for doc in documents:
-        print(doc)
+    # for doc in documents:
+    #    print(doc)
     restaurants = list(mongo.db.restaurants.find())
-    return render_template("index.html", restaurants=restaurants)
+    return render_template("index.html", documents=documents)
 
 
 # set debug to false when operational
