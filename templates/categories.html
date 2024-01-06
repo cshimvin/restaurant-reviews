@@ -3,5 +3,13 @@
 {% block content %}
 
     <h1>Categories</h1>
-
+    <ul class="list-group">
+        {% for category in categories %}
+            <li class="list-group-item">{{ category.type }} 
+            <a href="#" class="btn btn-primary btn-sm">Edit  <i class="fa-solid fa-pen"></i></a>
+            <a href="#" class="btn btn-danger btn-sm">Delete <i class="fa-solid fa-circle-xmark"></i></a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('add_category') }}" class="btn btn-primary">Add Category <i class="fa-solid fa-circle-plus"></i></a>
 {% endblock %}

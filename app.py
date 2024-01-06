@@ -59,8 +59,14 @@ def edit_restaurant(restaurant_id):
 
 @app.route("/categories")
 def get_categories():
-    return render_template("categories.html")
+    categories = list(mongo.db.restaurant_types.find().sort("type", 1))
+    return render_template("categories.html", categories=categories)
 
+
+@app.route("/add_category")
+def add_category():
+    return render_template("add_category.html")
+    
 
 @app.route("/users")
 def get_users():
