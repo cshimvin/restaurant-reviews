@@ -10,13 +10,13 @@
             <input type="text" name="name" id="name" value="{{ restaurant.name }}" required>
         </div>
         <div class="row">
-            <label for="url">Restaurant Wesbite URL</label>
+            <label for="url">Restaurant Website URL</label>
             <input type="url" name="url" id="url" value="{{ restaurant.url }}" required>
         </div>
         <div class="row"> 
-            <label for="type">Cuisine</label>
+            <label for="type">Category/Cuisine</label>
             <select id="type" name="type" required>
-            <option value="" disabled>Choose Cuisine</option>
+            <option value="" disabled>Choose Category</option>
             {% for cuisine in cuisines %}
                 {% if cuisine.type == restaurant.type %}
                     <option value="{{ restaurant.type }}" selected>{{ restaurant.type }}</option>
