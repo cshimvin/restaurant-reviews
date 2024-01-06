@@ -2,16 +2,5 @@
 
 {% block content %}
 
-    <h1>Restaurants</h1>
-    {% for restaurant in restaurants %}
-        <p>Restaurant: {{ restaurant.name }}</p>
-        <p>Website: <a href="{{ restaurant.url }}" target="_blank">View website</a></p>
-        <p>Cuisine: {{ restaurant.type }}</p>
-        <p>Address: {{ restaurant.address }}</p>
-        <p>Town: {{ restaurant.town }}</p>
-        <p>County: {{ restaurant.county }}</p>
-        <p>Postcode: {{ restaurant.postcode }}</p>
-        <p>Description: {{ restaurant.description }}</p>
-        <img src="{{ restaurant.image_url }}" alt="{{ restaurant.name }}" />
-    {% endfor %}
+    <h1>Welcome</h1>
 {% endblock %}

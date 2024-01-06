@@ -4,7 +4,7 @@
 
     <h1>Edit a restaurant</h1>
     <p>Edit the fields below as required.</p>
-    <form action="" method="POST">
+    <form action="{{ url_for('edit_restaurant', restaurant_id=restaurant._id) }}" method="POST">
         <div class="row">
             <label for="name">Restaurant Name</label>
             <input type="text" name="name" id="name" value="{{ restaurant.name }}" required>
@@ -14,7 +14,6 @@
             <input type="url" name="url" id="url" value="{{ restaurant.url }}" required>
         </div>
         <div class="row"> 
-            <p>{{ restaurant }}</p>
             <label for="type">Cuisine</label>
             <select id="type" name="type" required>
             <option value="" disabled>Choose Cuisine</option>
@@ -32,20 +31,26 @@
             <input type="text" name="address" id="address" value="{{ restaurant.address }}" required>
         </div>
         <div class="row">
-            <label for="name">Town/City</label>
+            <label for="town">Town/City</label>
             <input type="text" name="town" id="town" value="{{ restaurant.town }}" required>
         </div>
         <div class="row">
-            <label for="name">County</label>
+            <label for="county">County</label>
             <input type="text" name="county" id="county" value="{{ restaurant.county }}" required>
         </div>
         <div class="row">
-            <label for="name">Postcode</label>
+            <label for="postcode">Postcode</label>
             <input type="text" name="postcode" id="postcode" value="{{ restaurant.postcode }}" required>
         </div>
         <div class="row">
             <label for="description">Description</label>
             <textarea name="description" id=""description" value="{{ restaurant.description }}" required>{{ restaurant.description }}</textarea>
+        </div>
+        <div class="row">
+            <label for="image">Image URL</label>
+            <input type="text" name="image" id=""image" value="{{ restaurant.image_url }}" required>
+        </div>
+        <div class="row">
             <button class="btn btn-primary" type="submit">Update <i class="fa-solid fa-pen"></i></button>
             <a href="/" class="btn btn-secondary">Cancel</a>
         </div>

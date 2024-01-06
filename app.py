@@ -1,6 +1,6 @@
 # Import Flash, PyMongo and BSON dependencies
 import os
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, redirect, request
 import pymongo
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
@@ -20,18 +20,40 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
-@app.route("/get_restaurants")
 def index():
+    return render_template("index.html")
+
+
+@app.route("/get_restaurants")
+def get_restaurants():
     restaurants = mongo.db.restaurants.find()
-    return render_template("index.html", restaurants=restaurants)
+    return render_template("get_restaurants.html", restaurants=restaurants)
 
 
 @app.route("/edit_restaurant/<restaurant_id>", methods=["GET", "POST"])
 def edit_restaurant(restaurant_id):
+    if request.method == "POST":
+        submit = {
+            "$set": {
+                "name": request.form.get("name"),
+                "url": request.form.get("url"),
+                "type": request.form.get("type"),
+                "address": request.form.get("address"),
+                "town": request.form.get("town"),
+                "county": request.form.get("county"),
+                "postcode": request.form.get("postcode"),
+                "description": request.form.get("description"),
+                "image_url": request.form.get("image")
+            }
+        }
+        restaurant = mongo.db.restaurants.find_one({"_id": ObjectId(restaurant_id)})
+        mongo.db.restaurants.update_one({"_id": ObjectId(restaurant_id)}, submit)
+        cuisines = list(mongo.db.restaurant_types.find().sort("type", 1))
+        message = "Restaurant Successfully Updated"
+        return render_template("edit_restaurant.html", restaurant=restaurant, message=message, cuisines=cuisines)
     restaurant = mongo.db.restaurants.find_one({"_id": ObjectId(restaurant_id)})
     # Get list of restaurant types to populate the cuisine select list
     cuisines = list(mongo.db.restaurant_types.find().sort("type", 1))
-    print(cuisines)
     return render_template("edit_restaurant.html", restaurant=restaurant, cuisines=cuisines)
 
 
