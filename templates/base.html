@@ -30,10 +30,12 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Login</a></li>
                             <li><a class="dropdown-item" href="#">User admin</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('add_restaurant') }}">Add Restaurant</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('add_category') }}">Add Category</a></li>
                         </ul>
                     </li>
                     <li class="nav-item mr-2"><a class="nav-link" href="{{ url_for('get_restaurants') }}">Restaurants</a></li>
+                    <li class="nav-item mr-2"><a class="nav-link" href="{{ url_for('get_categories') }}">Categories</a></li>
                     <li class="nav-item mr-2"><a class="nav-link" href="#">Write a review</a></li>
                 </ul>
             </div>

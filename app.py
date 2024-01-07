@@ -27,7 +27,7 @@ def index():
 @app.route("/get_restaurants")
 def get_restaurants():
     restaurants = list(mongo.db.restaurants.find())
-    return render_template("get_restaurants.html", restaurants=restaurants)
+    return render_template("restaurants.html", restaurants=restaurants)
 
 
 @app.route("/edit_restaurant/<restaurant_id>", methods=["GET", "POST"])
@@ -80,14 +80,21 @@ def add_restaurant():
     return render_template("add_restaurant.html", cuisines=cuisines)
 
 
-@app.route("/categories")
+@app.route("/get_categories")
 def get_categories():
     categories = list(mongo.db.restaurant_types.find().sort("type", 1))
     return render_template("categories.html", categories=categories)
 
 
-@app.route("/add_category")
+@app.route("/add_category", methods=["GET", "POST"])
 def add_category():
+    if request.method == "POST":
+        submit = {
+            "type": request.form.get("type")
+        }
+        mongo.db.restaurant_types.insert_one(submit)
+        message = "Category Successfully Added"
+        return render_template("add_category.html", message=message)
     return render_template("add_category.html")
     
 
