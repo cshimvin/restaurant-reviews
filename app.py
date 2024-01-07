@@ -57,6 +57,29 @@ def edit_restaurant(restaurant_id):
     return render_template("edit_restaurant.html", restaurant=restaurant, cuisines=cuisines)
 
 
+@app.route("/add_restaurant", methods=["GET", "POST"])
+def add_restaurant():
+    if request.method == "POST":
+        submit = {
+                "name": request.form.get("name"),
+                "url": request.form.get("url"),
+                "type": request.form.get("type"),
+                "address": request.form.get("address"),
+                "town": request.form.get("town"),
+                "county": request.form.get("county"),
+                "postcode": request.form.get("postcode"),
+                "description": request.form.get("description"),
+                "image_url": request.form.get("image")
+        }
+        mongo.db.restaurants.insert_one(submit)
+        message = "Restaurant Successfully Added"
+        cuisines = list(mongo.db.restaurant_types.find().sort("type", 1))
+        return render_template("add_restaurant.html", message=message, cuisines=cuisines)
+    # Get list of restaurant types to populate the cuisine select list
+    cuisines = list(mongo.db.restaurant_types.find().sort("type", 1))
+    return render_template("add_restaurant.html", cuisines=cuisines)
+
+
 @app.route("/categories")
 def get_categories():
     categories = list(mongo.db.restaurant_types.find().sort("type", 1))
