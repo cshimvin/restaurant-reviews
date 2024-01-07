@@ -1,7 +1,6 @@
 # Import Flash, PyMongo and BSON dependencies
 import os
 from flask import Flask, render_template, url_for, redirect, request
-import pymongo
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
@@ -20,13 +19,14 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
+@app.route("/index")
 def index():
     return render_template("index.html")
 
 
 @app.route("/get_restaurants")
 def get_restaurants():
-    restaurants = mongo.db.restaurants.find()
+    restaurants = list(mongo.db.restaurants.find())
     return render_template("get_restaurants.html", restaurants=restaurants)
 
 

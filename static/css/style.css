@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:wght@100;200;300;400;500;600;700;800;900');
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@100;200;300;400;500;600;700;800');
+
+body {
+    font-family: "Montserrat", sans-serif;
+}
+
+nav {
+    background-color: brown;
+}
+
+.nav-title {
+    color: rgba(255,255,255);
+    font-family: "Kalam", sans-serif;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(255,255,255);
+}
