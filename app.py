@@ -24,6 +24,13 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    restaurants = list(mongo.db.restaurants.find({"$text": {"$search": query}}))
+    return render_template("index.html", restaurants=restaurants)
+
+
 @app.route("/get_restaurants")
 def get_restaurants():
     restaurants = list(mongo.db.restaurants.find())

@@ -3,6 +3,7 @@
 
 body {
     font-family: "Montserrat", sans-serif;
+    background: url('../images/background-image.jpg'); /* https://pxhere.com/en/photo/893009 */;
 }
 
 nav {
@@ -18,4 +19,11 @@ nav {
 
 .navbar-light .navbar-nav .nav-link {
     color: rgba(255,255,255);
+}
+
+.heading {
+    min-height: 240px;
+    letter-spacing: 1px;
+    background-color: white;
+    border-radius: 25px;
 }
