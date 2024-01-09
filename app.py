@@ -106,7 +106,25 @@ def add_category():
         categories = list(mongo.db.restaurant_types.find().sort("type", 1))
         return render_template("categories.html", message=message, categories=categories)
     return render_template("add_category.html")
-    
+
+
+@app.route("/edit_category/<category_id>", methods=["GET", "POST"])
+def edit_category(category_id):
+    if request.method == "POST":
+        submit = {
+            "$set": {
+                "type": request.form.get("type")
+            }
+        }
+        restaurant = mongo.db.restaurant_types.find_one({"_id": ObjectId(category_id)})
+        mongo.db.restaurant_types.update_one({"_id": ObjectId(category_id)}, submit)
+        categories = list(mongo.db.restaurant_types.find().sort("type", 1))
+        message = "Category Successfully Updated"
+        return render_template("categories.html", message=message, categories=categories)
+    category = mongo.db.restaurant_types.find_one({"_id": ObjectId(category_id)})
+    # Get list of restaurant types to populate the cuisine select list
+    return render_template("edit_category.html", category=category)
+
 
 @app.route("/delete_category/<category_id>")
 def delete_category(category_id):
