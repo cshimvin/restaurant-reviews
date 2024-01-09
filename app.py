@@ -101,9 +101,20 @@ def add_category():
         }
         mongo.db.restaurant_types.insert_one(submit)
         message = "Category Successfully Added"
-        return render_template("add_category.html", message=message)
+        categories = list(mongo.db.restaurant_types.find().sort("type", 1))
+        categories = list(mongo.db.restaurant_types.find().sort("type", 1))
+        categories = list(mongo.db.restaurant_types.find().sort("type", 1))
+        return render_template("categories.html", message=message, categories=categories)
     return render_template("add_category.html")
     
+
+@app.route("/delete_category/<category_id>")
+def delete_category(category_id):
+    mongo.db.restaurant_types.delete_one({"_id": ObjectId(category_id)})
+    message = "Category Successfully Deleted"
+    categories = list(mongo.db.restaurant_types.find().sort("type", 1))
+    return render_template("categories.html", message=message, categories=categories)
+
 
 @app.route("/users")
 def get_users():
