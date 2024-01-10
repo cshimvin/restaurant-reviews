@@ -1,17 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<h1>Add Category</h1>
-<p>Add a category or cuisine</p>
-<form action="{{ url_for('add_category') }}" method="POST">
-    <div class="row">
-        <label for="type">Category/cuisine</label>
-        <input type="text" id="type" name="type" minlength="3" maxlength="30">
+    <div class=" container-fluid d-flex bd-highlight">
+        <div class="row mt-4">
+            <h1>Add Category</h1>
+        </div>
     </div>
-    <div class="row">
-        <p><button type="submit" class="btn btn-primary btn-sm">Add <i class="fa-solid fa-plus"></i></button>
-        <a href="{{ url_for('index') }}" class="btn btn-secondary btn-sm">Cancel</a></p>
-    </div>
-</form>
+    <hr class="w-100">
+    <p>Add a category or cuisine</p>
+    <form action="{{ url_for('add_category') }}" method="POST">
+        <div class="row form-floating">
+            <input type="text" class="form-control" id="type" name="type" minlength="3" maxlength="30">
+            <label for="type">Category/cuisine</label>
+        </div>
+        <div class="row">
+            <p><button type="submit" class="btn btn-primary btn-sm">Add <i class="fa-solid fa-plus"></i></button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary btn-sm">Cancel</a></p>
+        </div>
+    </form>
 {% endblock %}

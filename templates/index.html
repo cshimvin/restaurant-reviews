@@ -2,64 +2,61 @@
 
 {% block content %}
 
-<!-- Heading title and image -->
+    <!-- Heading title and image -->
 
-<div class="heading container-fluid d-flex p-2 bd-highlight align-items-center justify-content-center mt-2">
-    <div class="row>
-        <div class="col-12">
-            <h1 class="text-center">Wales Restaurant Reviews</h1>
-            <h2 class="text-center">The Ultimate Restaurant Review Site</h2>
-        </div>
-    </div>
-</div>
-
-<!-- Search box -->
-
-<div class="container">
-    <div class="row g-2 mb-2 mt-2">
-        <form action="{{ url_for('search') }}" method="post">
-            <div class="col-md">
-                <div class="form-floating input-group input-group-lg">
-                <input type="text" class="form-control" name="query" id="query" minlength="3" placeholder="Search for a restaurant" aria-label="Search for a restaurant" aria-describedby="button-addon1" required>
-                <label for="query">Search for a restaurant</label>
-                
-                <button class="btn btn-primary" type="submit" id="button-addon1">Search <i class="fas fa-search right"></i></button>
+    <div class="heading container-fluid d-flex p-2 bd-highlight align-items-center justify-content-center mt-2">
+        <div class="row>
+            <div class="col-12">
+                <h1 class="text-center">Wales Restaurant Reviews</h1>
+                <h2 class="text-center">The Ultimate Restaurant Review Site</h2>
             </div>
         </div>
-        </form>
     </div>
 
-<section>
-    {% if restaurants|length > 0 %}
-        <div class="row row-cols-3 row-cols-md-3 row-cols-sm-2">
-            {% for restaurant in restaurants %}
-                <div class="col">
-                    <div class="card h-100">
-                        <img src="{{ restaurant.image_url }}" alt="{{ restaurant.name }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ restaurant.name }}</h5>
-                            <p class="card-text">{{ restaurant.description }}</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li>Website: <a href="{{ restaurant.url }}" target="_blank">View website</a></li>
-                            <li>Cuisine: {{ restaurant.type }}</li>
-                            <li>Address: {{ restaurant.address }}</li>
-                            <li>Town: {{ restaurant.town }}</li>
-                            <li>County: {{ restaurant.county }}</li>
-                            <li>Postcode: {{ restaurant.postcode }}</li>
-                        </ul>
-                        <p><a href="{{ url_for('edit_restaurant', restaurant_id=restaurant._id) }}" class="btn btn-primary btn-sm">Edit <i class="fa-solid fa-pencil"></i></a>
-                        <a href="#" class="btn btn-danger btn-sm">Delete <i class="fa-solid fa-trash"></i></a></p>
-                        <p><a href="#" class="btn btn-primary btn-sm">View reviews <i class="fa-solid fa-eye"></i></a>
-                        <a href="#" class="btn btn-primary btn-sm">Write a review <i class="fa-solid fa-pencil"></i></a></p>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <h3>No Results Found</h3>
-    {% endif %}
-</section>
+    <!-- Search box -->
 
-</div>
+    <div class="container">
+        <div class="row g-2 mb-2 mt-2">
+            <form action="{{ url_for('search') }}" method="post">
+                <div class="col-md">
+                    <div class="form-floating input-group input-group-lg">
+                    <input type="text" class="form-control" name="query" id="query" minlength="3" placeholder="Search for a restaurant" aria-label="Search for a restaurant" aria-describedby="button-addon1" required>
+                    <label for="query">Search for a restaurant</label>
+                    
+                    <button class="btn btn-primary" type="submit" id="button-addon1">Search <i class="fas fa-search right"></i></button>
+                </div>
+            </div>
+            </form>
+        </div>
+
+    <section>
+        {% if restaurants|length > 0 %}
+            <div class="row row-cols-3 row-cols-md-3 row-cols-sm-2">
+                {% for restaurant in restaurants %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="{{ restaurant.image_url }}" alt="{{ restaurant.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ restaurant.name }}</h5>
+                                <p class="card-text">{{ restaurant.description }}</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li>Website: <a href="{{ restaurant.url }}" target="_blank">View website</a></li>
+                                <li>Cuisine: {{ restaurant.type }}</li>
+                                <li>Address: {{ restaurant.address }}</li>
+                                <li>Town: {{ restaurant.town }}</li>
+                                <li>County: {{ restaurant.county }}</li>
+                                <li>Postcode: {{ restaurant.postcode }}</li>
+                            </ul>
+                            <p><a href="{{ url_for('edit_restaurant', restaurant_id=restaurant._id) }}" class="btn btn-primary btn-sm">Edit <i class="fa-solid fa-pencil"></i></a>
+                            <a href="#" class="btn btn-danger btn-sm">Delete <i class="fa-solid fa-trash"></i></a></p>
+                            <p><a href="#" class="btn btn-primary btn-sm">View reviews <i class="fa-solid fa-eye"></i></a>
+                            <a href="#" class="btn btn-primary btn-sm">Write a review <i class="fa-solid fa-pencil"></i></a></p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        </section>
+    </div>
 {% endblock %}
