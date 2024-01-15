@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container-fluid d-flex bd-highlight">
+        <div class="row mt-4">
+            <h1>{{ restaurant.name }}</h1>
+            <div class="col mb-4">
+                <img src="{{ restaurant.image_url }}" alt="{{ restaurant.name }}">
+                <p>{{ restaurant.description }}</p>
+                <p><strong>Website:</strong> <a href="{{ restaurant.url }}" target="_blank">View website</a></p>
+                <p><strong>Cuisine:</strong> {{ restaurant.type }}</p>
+                <p><strong>Address:</strong><br>
+                    {{ restaurant.address }}<br>
+                    {{ restaurant.town }}<br>
+                    {{ restaurant.county }}<br>
+                    {{ restaurant.postcode }}
+                </p>
+            </div>
+        </div>
+    </div>  
+    <div class="row">
+        <hr class="w-100">
+        <h2>Reviews</h2>
+    </div>
+
+{% endblock %}
