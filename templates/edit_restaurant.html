@@ -56,6 +56,16 @@
             <input type="text" class="form-control" name="image" id=""image" value="{{ restaurant.image_url }}" maxlength="100" required>
             <label for="image">Image URL</label>
         </div>
+        <div class="row p-3">
+            <div class="form-check form-switch">
+                <label class="form-check-label" for="featured">Featured restaurant</label>
+                {% if restaurant.featured == True %}
+                    <input type="checkbox" class="form-check-input" name="featured" id="featured" checked>
+                {% else %}
+                    <input type="checkbox" class="form-check-input" name="featured" id="featured">
+                {% endif %}
+            </div>
+        </div>
         <div class="row mt-2">
             <div class="col mb-2">
                 <button class="btn btn-primary" type="submit">Update <i class="fa-solid fa-pen"></i></button>

@@ -40,6 +40,7 @@ def get_restaurants():
 @app.route("/edit_restaurant/<restaurant_id>", methods=["GET", "POST"])
 def edit_restaurant(restaurant_id):
     if request.method == "POST":
+        is_featured = True if request.form.get("featured") == "on" else False
         submit = {
             "$set": {
                 "name": request.form.get("name"),
@@ -50,7 +51,8 @@ def edit_restaurant(restaurant_id):
                 "county": request.form.get("county"),
                 "postcode": request.form.get("postcode"),
                 "description": request.form.get("description"),
-                "image_url": request.form.get("image")
+                "image_url": request.form.get("image"),
+                "featured": is_featured
             }
         }
         restaurant = mongo.db.restaurants.find_one({"_id": ObjectId(restaurant_id)})
@@ -67,6 +69,7 @@ def edit_restaurant(restaurant_id):
 @app.route("/add_restaurant", methods=["GET", "POST"])
 def add_restaurant():
     if request.method == "POST":
+        is_featured = True if request.form.get("featured") == "on" else False
         submit = {
                 "name": request.form.get("name"),
                 "url": request.form.get("url"),
@@ -76,11 +79,13 @@ def add_restaurant():
                 "county": request.form.get("county"),
                 "postcode": request.form.get("postcode"),
                 "description": request.form.get("description"),
-                "image_url": request.form.get("image")
+                "image_url": request.form.get("image"),
+                "featured": is_featured
         }
         mongo.db.restaurants.insert_one(submit)
         message = "Restaurant Successfully Added"
         cuisines = list(mongo.db.restaurant_types.find().sort("type", 1))
+        print(request.form.get("featured"))
         return render_template("add_restaurant.html", message=message, cuisines=cuisines)
     # Get list of restaurant types to populate the cuisine select list
     cuisines = list(mongo.db.restaurant_types.find().sort("type", 1))
