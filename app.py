@@ -145,6 +145,11 @@ def delete_category(category_id):
     return render_template("categories.html", message=message, categories=categories)
 
 
+@app.route("/add_review/<restaurant_id>")
+def add_review(restaurant_id):
+    return render_template("add_review.html")
+
+
 @app.route("/users")
 def get_users():
     return render_template("users.html")

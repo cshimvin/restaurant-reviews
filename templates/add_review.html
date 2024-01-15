@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container-fluid d-flex bd-highlight m-4">
+        <div class="row mt-4">
+            <h1>Add Your Review for RESTAURANT NAME</h1>
+        </div>
+    </div>
+    <hr class="w-100">
+    <div class="row p-4">
+        <p>Share your experience! Please conplete the review form below.</p>
+    </div>
+    <div class="row p-4">
+        <form action="" method="POST">
+            <div class="row form-floating mt-2">
+                <input type="text" class="form-control" id="title" name="title" minlength="10" maxlength="100" required>
+                <label for="title">Review title</label>
+            </div>
+            <div class="row form-floating mt-2">
+                <textarea name="review_content" class="form-control" style="height: 100px;" id="review_content" placeholder="Describe your experience" minlength="50" required></textarea>
+                <label for="review_content">Review</label>
+            </div>
+            <div class="row mt-2">
+                <label for="food_rating">Rate your food (1-terrible to 5-excellent)</label>
+                <select name="food_rating" id="food_rating" class="form-select" aria-label="Food rating" required>
+                    <option selected disabled>Select</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <div class="row mt-2">
+                <label for="service_rating">Rate the service you received (1-terrible to 5-excellent)</label>
+                <select name="service_rating" id="service_rating" class="form-select" aria-label="Service rating" required>
+                    <option selected disabled>Select</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <div class="row mt-2">
+                <label for="overall_rating">Rate your overall experience (1-terrible to 5-excellent)</label>
+                <select name="overall_rating" id="overall_rating" class="form-select" aria-label="Overall rating" required>
+                    <option selected disabled>Select</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
