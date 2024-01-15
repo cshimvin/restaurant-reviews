@@ -147,7 +147,8 @@ def delete_category(category_id):
 
 @app.route("/add_review/<restaurant_id>")
 def add_review(restaurant_id):
-    return render_template("add_review.html")
+    restaurant = mongo.db.restaurants.find_one({"_id": ObjectId(restaurant_id)})
+    return render_template("add_review.html", restaurant=restaurant)
 
 
 @app.route("/users")
