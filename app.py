@@ -21,7 +21,8 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/index")
 def index():
-    return render_template("index.html")
+    featured_restaurants = list(mongo.db.restaurants.find({"featured": True}))
+    return render_template("index.html", featured_restaurants=featured_restaurants)
 
 
 @app.route("/search", methods=["GET", "POST"])
