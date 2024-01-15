@@ -156,6 +156,11 @@ def get_users():
     return render_template("users.html")
 
 
+@app.route("/register")
+def register():
+    return render_template("register.html")
+
+
 # set debug to false when operational
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
