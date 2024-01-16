@@ -4,6 +4,7 @@ from flask import Flask, render_template, url_for, redirect, request, session
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 
 # Import environment variables if they exist
 if os.path.exists("env.py"):
@@ -141,10 +142,32 @@ def delete_category(category_id):
     return render_template("categories.html", message=message, categories=categories)
 
 
-@app.route("/add_review/<restaurant_id>")
+@app.route("/add_review/<restaurant_id>", methods=["GET", "POST"])
 def add_review(restaurant_id):
-    restaurant = mongo.db.restaurants.find_one({"_id": ObjectId(restaurant_id)})
-    return render_template("add_review.html", restaurant=restaurant)
+    if request.method == "POST":
+        if session["user"]:
+            restaurant = mongo.db.restaurants.find_one({"_id": ObjectId(restaurant_id)})
+            now = datetime.now()
+            review = {
+                "title": request.form.get("title"),
+                "review_date": now.strftime("%B %d, %Y"),
+                "user_id": session["user"],
+                "food_rating": request.form.get("food_rating"),
+                "service_rating": request.form.get("service_rating"),
+                "overall_rating": request.form.get("overall_rating"),
+                "restaurant_id": restaurant_id,
+                "review_content": request.form.get("review_content")
+            }
+            mongo.db.reviews.insert_one(review)
+            message = "Review Successfully Added"
+            return render_template("display_restaurant.html", message=message, restaurant=restaurant)
+        else:
+            return redirect(url_for("log_in"))
+    if session["user"]:
+        restaurant = mongo.db.restaurants.find_one({"_id": ObjectId(restaurant_id)})
+        return render_template("add_review.html", restaurant=restaurant)
+    else:
+        return redirect(url_for("log_in"))
 
 
 @app.route("/users")
