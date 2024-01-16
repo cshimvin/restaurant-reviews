@@ -221,13 +221,18 @@ def log_in():
                 # invalid password match
                 message = "Incorrect Username and/or Password"
                 return render_template("login.html", message=message)
-
         else:
             # username doesn't exist
             message = "Incorrect Username and/or Password"
             return render_template("login.html", message=message)
-
     return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+    # remove user from session cookie
+    session.pop("user")
+    return redirect(url_for("log_in", message="Logged out"))
 
 
 # set debug to false when operational
