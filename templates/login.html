@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="page-content p-4 mt-4 container">
+        <div class="row">
+            <h1>Log In</h1>
+        </div>
+        <hr class="w-100">
+        <div class="row p-4">
+           <p>Not yet registered? <a href="{{ url_for('register') }}">Create an account.</a></p>
+        </div>
+        <form action="{{ url_for('log_in') }}" method="POST">
+            <div class="row form-floating mb-3">
+                <input type="text" class="form-control" id="username" name="username" minlength="3" maxlength="10" required>
+                <label for="username">Username</label>
+                </div>
+                <div class="row form-floating mb-3">
+                <input type="password" class="form-control" id="password" name="password" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" required>
+                <label for="password">Password</label>
+                </div>
+            <div class="row">
+                <div class="col mt-2 mb-2">
+                    <button class="btn btn-primary" type="submit">Log In <i class="fa-solid fa-pencil"></i></button>
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

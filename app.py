@@ -156,8 +156,7 @@ def get_users():
 def register():
     if request.method == "POST":
         # check if username already exists in db
-        existing_user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
+        existing_user = mongo.db.users.find_one({"username": request.form.get("username").lower()})
         if existing_user:
             message = "Username already exists"
             return render_template("register.html", message=message)
@@ -176,6 +175,33 @@ def register():
         message = "Registration Successful!"
         return render_template("register.html", message=message)
     return render_template("register.html")
+
+
+@app.route("/log_in", methods=["GET", "POST"])
+def log_in():
+    if request.method == "POST":
+        # check user exists
+        existing_user = mongo.db.users.find_one({"username": request.form.get("username").lower()})
+        if existing_user:
+            # ensure hashed password matches user input
+            if check_password_hash(
+                    existing_user["password"], request.form.get("password")):
+                        session["user"] = request.form.get("username").lower()
+                        message = "Welcome, {}".format(
+                            request.form.get("username"))
+                        return render_template("login.html", message=message)
+                        # return redirect(url_for("profile", username=session["user"], message=message))
+            else:
+                # invalid password match
+                message = "Incorrect Username and/or Password"
+                return render_template("login.html", message=message)
+
+        else:
+            # username doesn't exist
+            message = "Incorrect Username and/or Password"
+            return render_template("login.html", message=message)
+
+    return render_template("login.html")
 
 
 # set debug to false when operational
