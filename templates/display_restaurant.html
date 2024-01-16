@@ -17,10 +17,23 @@
                 </p>
             </div>
         </div>
- 
         <div class="row">
             <hr class="w-100">
             <h2>Reviews</h2>
         </div>
+        {% if reviews|length > 0 %}
+            {% for review in reviews %}
+                <h3>{{ review.title }}</h3>
+                <p>{{ review.review_content }}</p>
+                <ul>
+                    <li>Food rating: {{ review.food_rating }}</li>
+                    <li>Service rating: {{ review.service_rating }}</li>
+                    <li>Overall rating: {{ review.overall_rating }}</li>
+                </ul>
+                <p>Reviewed by {{ review.user_id }} on {{ review.review_date }}</p>
+            {% endfor %}
+        {% else %}
+            <h3>No reviews found</h3>
+        {% endif %}
     </div>
 {% endblock %}

@@ -93,7 +93,10 @@ def add_restaurant():
 @app.route("/display_restaurant/<restaurant_id>")
 def display_restaurant(restaurant_id):
     restaurant = mongo.db.restaurants.find_one({"_id": ObjectId(restaurant_id)})
-    return render_template("display_restaurant.html", restaurant=restaurant)
+    reviews = list(mongo.db.reviews.find({"restaurant_id": restaurant_id}))
+    print(reviews)
+    return render_template("display_restaurant.html", restaurant=restaurant, reviews=reviews)
+
 
 @app.route("/get_categories")
 def get_categories():
