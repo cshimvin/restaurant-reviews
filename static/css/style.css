@@ -17,6 +17,11 @@ nav {
     margin-left: 0.5rem;
 }
 
+.nav-title a {
+    color: rgba(255,255,255);
+    text-decoration: none;
+}
+
 .navbar-light .navbar-nav .nav-link {
     color: rgba(255,255,255);
 }
@@ -24,8 +29,9 @@ nav {
 .heading {
     min-height: 240px;
     letter-spacing: 1px;
-    background-color: white;
+    background-color: green;
     border-radius: 25px;
+    color: white;
 }
 
 .page-content {

@@ -32,12 +32,6 @@ def search():
     return render_template("index.html", restaurants=restaurants)
 
 
-@app.route("/get_restaurants")
-def get_restaurants():
-    restaurants = list(mongo.db.restaurants.find())
-    return render_template("restaurants.html", restaurants=restaurants)
-
-
 @app.route("/edit_restaurant/<restaurant_id>", methods=["GET", "POST"])
 def edit_restaurant(restaurant_id):
     if request.method == "POST":
