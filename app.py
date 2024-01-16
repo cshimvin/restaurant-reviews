@@ -1,12 +1,14 @@
-# Import Flash, PyMongo and BSON dependencies
+# Import Flash, PyMongo, password hash and BSON dependencies
 import os
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, request, session
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # Import environment variables if they exist
 if os.path.exists("env.py"):
     import env
+
 
 app = Flask(__name__)
 
@@ -150,8 +152,29 @@ def get_users():
     return render_template("users.html")
 
 
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
+    if request.method == "POST":
+        # check if username already exists in db
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
+        if existing_user:
+            message = "Username already exists"
+            return render_template("register.html", message=message)
+        # check if passwords match
+        if request.form.get("password1") != request.form.get("password2"):
+            message = "Passwords do not match"
+            return render_template("register.html", message=message)
+        register = {
+            "username": request.form.get("username").lower(),
+            "password": generate_password_hash(request.form.get("password1")),
+            "is_admin": "no"
+        }
+        mongo.db.users.insert_one(register)
+        # put the new user into 'session' cookie
+        session["user"] = request.form.get("username").lower()
+        message = "Registration Successful!"
+        return render_template("register.html", message=message)
     return render_template("register.html")
 
 
