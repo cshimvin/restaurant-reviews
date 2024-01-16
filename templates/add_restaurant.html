@@ -1,68 +1,68 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container-fluid d-flex bd-highlight">
-        <div class="row mt-4">
+    <div class="page-content p-4 mt-4 container">
+        <div class="row">
             <h1>Add a Restaurant</h1>
         </div>
-    </div>
-    <hr class="w-100">
-    <div class="row">
-        <p>Complete the fields below as required.</p>
-    </div>
-    <form action="{{ url_for('add_restaurant') }}" method="POST">
-        <div class="row form-floating">
-            <input type="text" class="form-control" name="name" id="name" minlength="3" maxlength="50" required>
-            <label for="name">Restaurant Name</label>
-        </div>
-        <div class="row form-floating">
-            <input type="url" class="form-control" name="url" id="url" placeholder="e.g. http://www.example.com" minlength="3" maxlength="50" required>
-            <label for="url">Restaurant Website URL</label>
-        </div>
-        <div class="row form-floating"> 
-            <select id="type" class="form-select" name="type" required>
-                <option value="" selected disabled>Choose Category</option>
-                {% for cuisine in cuisines %}
-                <option value="{{ cuisine.type }}">{{ cuisine.type }}</option>
-                {% endfor %}
-            </select>
-            <label for="type">Category/Cuisine</label>
-        </div>
-        <div class="row form-floating">
-            <input type="text" class="form-control" name="address" id="address" minlength="3" required>
-            <label for="address">Restaurant Address</label>
-        </div>
-        <div class="row form-floating">
-            <input type="text" class="form-control" name="town" id="town" minlength="3" maxlength="50" required>
-            <label for="town">Town/City</label>
-        </div>
-        <div class="row form-floating">
-            <input type="text" class="form-control" name="county" id="county" minlength="3" maxlength="50" required>
-            <label for="county">County</label>
-        </div>
-        <div class="row form-floating">
-            <input type="text" class="form-control" name="postcode" id="postcode" minlength="6" maxlength="10" required>
-            <label for="postcode">Postcode</label>
-        </div>
-        <div class="row form-floating">
-            <textarea name="description" class="form-control" style="height: 100px;" id="description" placeholder="Enter a description of the restaurant" minlength="3" required></textarea>
-            <label for="description">Description</label>
-        </div>
-        <div class="row form-floating">
-            <input type="text" class="form-control" name="image" id="image" placeholder="e.g. http://www.example.com/image.jpg"  maxlength="100" required>
-            <label for="image">Image URL</label>
-        </div>
-        <div class="row p-3">
-            <div class="form-check form-switch">
-                <label class="form-check-label" for="featured">Featured restaurant</label>
-                <input type="checkbox" class="form-check-input" name="featured" id="featured">
-            </div>
-        </div>
+        <hr class="w-100">
         <div class="row">
-            <div class="col mt-2 mb-2">
-                <button class="btn btn-primary" type="submit">Add <i class="fa-solid fa-plus"></i></button>
-                <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
-            </div>
+            <p>Complete the fields below as required.</p>
         </div>
-    </form>
+        <form action="{{ url_for('add_restaurant') }}" method="POST">
+            <div class="row form-floating mb-4">
+                <input type="text" class="form-control" name="name" id="name" minlength="3" maxlength="50" required>
+                <label for="name">Restaurant Name</label>
+            </div>
+            <div class="row form-floating mb-4">
+                <input type="url" class="form-control" name="url" id="url" placeholder="e.g. http://www.example.com" minlength="3" maxlength="50" required>
+                <label for="url">Restaurant Website URL</label>
+            </div>
+            <div class="row form-floating mb-4"> 
+                <select id="type" class="form-select" name="type" required>
+                    <option value="" selected disabled>Choose Category</option>
+                    {% for cuisine in cuisines %}
+                    <option value="{{ cuisine.type }}">{{ cuisine.type }}</option>
+                    {% endfor %}
+                </select>
+                <label for="type">Category/Cuisine</label>
+            </div>
+            <div class="row form-floating mb-4">
+                <input type="text" class="form-control" name="address" id="address" minlength="3" required>
+                <label for="address">Restaurant Address</label>
+            </div>
+            <div class="row form-floating mb-4">
+                <input type="text" class="form-control" name="town" id="town" minlength="3" maxlength="50" required>
+                <label for="town">Town/City</label>
+            </div>
+            <div class="row form-floating mb-4">
+                <input type="text" class="form-control" name="county" id="county" minlength="3" maxlength="50" required>
+                <label for="county">County</label>
+            </div>
+            <div class="row form-floating mb-4">
+                <input type="text" class="form-control" name="postcode" id="postcode" minlength="6" maxlength="10" required>
+                <label for="postcode">Postcode</label>
+            </div>
+            <div class="row form-floating mb-4">
+                <textarea name="description" class="form-control" style="height: 100px;" id="description" placeholder="Enter a description of the restaurant" minlength="3" required></textarea>
+                <label for="description">Description</label>
+            </div>
+            <div class="row form-floating mb-4">
+                <input type="text" class="form-control" name="image" id="image" placeholder="e.g. http://www.example.com/image.jpg"  maxlength="100" required>
+                <label for="image">Image URL</label>
+            </div>
+            <div class="row p-3 mb-4">
+                <div class="form-check form-switch">
+                    <label class="form-check-label" for="featured">Featured restaurant</label>
+                    <input type="checkbox" class="form-check-input" name="featured" id="featured">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mt-2 mb-2">
+                    <button class="btn btn-primary" type="submit">Add <i class="fa-solid fa-plus"></i></button>
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}
