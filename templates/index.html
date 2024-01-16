@@ -5,16 +5,15 @@
     <!-- Heading title and image -->
 
     <div class="heading container-fluid d-flex p-2 align-items-center justify-content-center mt-4">
-            <div class="col-12">
-                <h1 class="text-center">Wales Restaurant Reviews</h1>
-                <h2 class="text-center">The Ultimate Restaurant Review Site</h2>
-            </div>
+        <div class="col-12">
+            <h1 class="text-center">Wales Restaurant Reviews</h1>
+            <h2 class="text-center">The Ultimate Restaurant Review Site</h2>
         </div>
     </div>
 
-    <!-- Search box -->
-
     <div class="container">
+        
+        <!-- Search box -->
         <div class="row g-2 mb-2 mt-2">
             <form action="{{ url_for('search') }}" method="post">
                 <div class="col-md">
@@ -27,74 +26,80 @@
             </form>
         </div>
 
+        <!-- Restaurant search results -->
         <section>
             {% if restaurants|length > 0 %}
                 <div class="page-content p-4 mt-4">
+                    <div class="row">
+                        <h2>Restaurants</h2>
+                    </div>
                     <div class="row">
                         {% for restaurant in restaurants %}
                             <div class="col">
                                 <div class="card h-100 p-3 mt-4">
                                     <img src="{{ restaurant.image_url }}" alt="{{ restaurant.name }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ restaurant.name }}</h5>
-                                    <p class="card-text">{{ restaurant.description }}</p>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ restaurant.name }}</h5>
+                                        <p class="card-text">{{ restaurant.description }}</p>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><strong>Website: </strong><a href="{{ restaurant.url }}" target="_blank">View website</a></li>
+                                        <li class="list-group-item"><strong>Cuisine: </strong>{{ restaurant.type }}</li>
+                                        <li class="list-group-item">
+                                            <strong>Address:</strong><br>
+                                            {{ restaurant.address }}<br>
+                                            {{ restaurant.town }}<br>
+                                            {{ restaurant.county }}<br>
+                                            {{ restaurant.postcode }}
+                                        </li>
+                                    </ul>
+                                    <p class="mt-4"><a href="{{ url_for('edit_restaurant', restaurant_id=restaurant._id) }}" class="btn btn-primary btn-sm">Edit <i class="fa-solid fa-pencil"></i></a>
+                                    <a href="#" class="btn btn-danger btn-sm">Delete <i class="fa-solid fa-trash"></i></a></p>
+                                    <p><a href="{{ url_for('display_restaurant', restaurant_id=restaurant._id) }}" class="btn btn-primary btn-sm">View reviews <i class="fa-solid fa-eye"></i></a>
+                                    <a href="{{ url_for('add_review', restaurant_id=restaurant._id) }}" class="btn btn-primary btn-sm">Write a review <i class="fa-solid fa-pencil"></i></a></p>
                                 </div>
-                                <ul class="list-group list-group-flush">
-                                    <li>Website: <a href="{{ restaurant.url }}" target="_blank">View website</a></li>
-                                    <li>Cuisine: {{ restaurant.type }}</li>
-                                    <li>Address: {{ restaurant.address }}</li>
-                                    <li>Town: {{ restaurant.town }}</li>
-                                    <li>County: {{ restaurant.county }}</li>
-                                    <li>Postcode: {{ restaurant.postcode }}</li>
-                                </ul>
-                                <p><a href="{{ url_for('edit_restaurant', restaurant_id=restaurant._id) }}" class="btn btn-primary btn-sm">Edit <i class="fa-solid fa-pencil"></i></a>
-                                <a href="#" class="btn btn-danger btn-sm">Delete <i class="fa-solid fa-trash"></i></a></p>
-                                <p><a href="#" class="btn btn-primary btn-sm">View reviews <i class="fa-solid fa-eye"></i></a>
-                                <a href="#" class="btn btn-primary btn-sm">Write a review <i class="fa-solid fa-pencil"></i></a></p>
                             </div>
-                        </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        </section>
-        <section>
-            {% if featured_restaurants|length > 0 %}
-            <div class="page-content p-4 mt-4">
-                <div class="row">
-                    <h2>Featured Restaurants</h2>
-                </div>
-                    <div class="row">
-                        {% for featured in featured_restaurants %}
-                        <div class="col">
-                            <div class="card h-100 p-3 mt-4">
-                                <img src="{{ featured.image_url }}" alt="{{ featured.name }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ featured.name }}</h5>
-                                    <p class="card-text">{{ featured.description }}</p>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><strong>Website: </strong><a href="{{ featured.url }}" target="_blank">View website</a></li>
-                                    <li class="list-group-item"><strong>Cuisine: </strong>{{ featured.type }}</li>
-                                    <li class="list-group-item">
-                                        <strong>Address:</strong><br>
-                                        {{ featured.address }}<br>
-                                        {{ featured.town }}<br>
-                                        {{ featured.county }}<br>
-                                        {{ featured.postcode }}
-                                    </li>
-                                </ul>
-                                <p class="mt-4"><a href="{{ url_for('edit_restaurant', restaurant_id=featured._id) }}" class="btn btn-primary btn-sm">Edit <i class="fa-solid fa-pencil"></i></a>
-                                <a href="#" class="btn btn-danger btn-sm">Delete <i class="fa-solid fa-trash"></i></a></p>
-                                <p><a href="{{ url_for('display_restaurant', restaurant_id=featured._id) }}" class="btn btn-primary btn-sm">View reviews <i class="fa-solid fa-eye"></i></a>
-                                <a href="{{ url_for('add_review', restaurant_id=featured._id) }}" class="btn btn-primary btn-sm">Write a review <i class="fa-solid fa-pencil"></i></a></p>
-                            </div>
-                        </div>
                         {% endfor %}
                     </div>
-                    {% endif %}
-                </div>
+                {% endif %}
+        </section>
+
+        <!-- Featured restaurants -->
+        <section>
+            {% if featured_restaurants|length > 0 %}
+                <div class="page-content p-4 mt-4">
+                    <div class="row">
+                        <h2>Featured Restaurants</h2>
+                    </div>
+                    <div class="row">
+                        {% for featured in featured_restaurants %}
+                            <div class="col">
+                                <div class="card h-100 p-3 mt-4">
+                                    <img src="{{ featured.image_url }}" alt="{{ featured.name }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ featured.name }}</h5>
+                                        <p class="card-text">{{ featured.description }}</p>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><strong>Website: </strong><a href="{{ featured.url }}" target="_blank">View website</a></li>
+                                        <li class="list-group-item"><strong>Cuisine: </strong>{{ featured.type }}</li>
+                                        <li class="list-group-item">
+                                            <strong>Address:</strong><br>
+                                            {{ featured.address }}<br>
+                                            {{ featured.town }}<br>
+                                            {{ featured.county }}<br>
+                                            {{ featured.postcode }}
+                                        </li>
+                                    </ul>
+                                    <p class="mt-4"><a href="{{ url_for('edit_restaurant', restaurant_id=featured._id) }}" class="btn btn-primary btn-sm">Edit <i class="fa-solid fa-pencil"></i></a>
+                                    <a href="#" class="btn btn-danger btn-sm">Delete <i class="fa-solid fa-trash"></i></a></p>
+                                    <p><a href="{{ url_for('display_restaurant', restaurant_id=featured._id) }}" class="btn btn-primary btn-sm">View reviews <i class="fa-solid fa-eye"></i></a>
+                                    <a href="{{ url_for('add_review', restaurant_id=featured._id) }}" class="btn btn-primary btn-sm">Write a review <i class="fa-solid fa-pencil"></i></a></p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
         </section>
     </div>
