@@ -166,7 +166,8 @@ def add_review(restaurant_id):
             return render_template("display_restaurant.html", message=message, restaurant=restaurant)
         else:
             return redirect(url_for("log_in"))
-    if session["user"]:
+    user_id = session.get('user')
+    if user_id:
         restaurant = mongo.db.restaurants.find_one({"_id": ObjectId(restaurant_id)})
         return render_template("add_review.html", restaurant=restaurant)
     else:
