@@ -104,6 +104,12 @@ def get_categories():
     return render_template("categories.html", categories=categories)
 
 
+@app.route("/restaurants/<category_name>")
+def get_restaurants(category_name):
+    restaurants = list(mongo.db.restaurants.find({"type": category_name}))
+    return render_template("restaurants.html", restaurants=restaurants, category_name=category_name)
+
+
 @app.route("/add_category", methods=["GET", "POST"])
 def add_category():
     if request.method == "POST":
