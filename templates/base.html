@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
     <title>Document</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
 
         <!-- Main Menu -->
@@ -60,15 +60,15 @@
                 </div>
             </div>
         {% endif %}
-        
+
     <main>
         {% block content %}
         {% endblock %}
     </main>
 
-     <!-- Footer -->
-
-     <footer class="container-fluid">
+    <!-- Footer taken from https://stackoverflow.com/questions/40853952/bootstrap-footer-at-the-bottom-of-the-page -->
+    
+    <footer class="mt-auto">
         <div class="row">
             <div class="col">
                 <p class="footer-text">For Educational Purposes Only</p>
