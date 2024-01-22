@@ -198,6 +198,36 @@ def delete_user(user_id):
     return render_template("user_admin.html", message=message, users=users)
 
 
+@app.route("/make_admin/<user_id>")
+def make_admin(user_id):
+    submit = {
+        "$set": {
+            "is_admin": "yes"
+        }
+    }
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    mongo.db.users.update_one({"_id": ObjectId(user_id)}, submit)
+    users = list(mongo.db.users.find().sort("username", 1))
+    message = "User Successfully Updated"
+    users = list(mongo.db.users.find().sort("username", 1))
+    return render_template("user_admin.html", message=message, users=users)
+
+
+@app.route("/remove_admin/<user_id>")
+def remove_admin(user_id):
+    submit = {
+        "$set": {
+            "is_admin": "no"
+        }
+    }
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    mongo.db.users.update_one({"_id": ObjectId(user_id)}, submit)
+    users = list(mongo.db.users.find().sort("username", 1))
+    message = "User Successfully Updated"
+    users = list(mongo.db.users.find().sort("username", 1))
+    return render_template("user_admin.html", message=message, users=users)
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
