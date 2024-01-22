@@ -21,6 +21,11 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
+def check_admin(user_id):
+    admin_status = mongo.db.users.find_one({"username": user_id})
+    return admin_status["is_admin"]
+
+
 @app.route("/")
 @app.route("/index")
 def index():
@@ -183,9 +188,14 @@ def add_review(restaurant_id):
 @app.route("/user_admin")
 def user_admin():
     user_id = session.get('user')
+    admin = check_admin(user_id)
+    print(admin)
     if user_id:
-        users = list(mongo.db.users.find().sort("username", 1))
-        return render_template("user_admin.html", users=users)
+        if admin == "yes":
+            users = list(mongo.db.users.find().sort("username", 1))
+            return render_template("user_admin.html", users=users)
+        else:
+            return redirect(url_for("not_authorised"))
     else:
         return redirect(url_for("log_in"))
 
