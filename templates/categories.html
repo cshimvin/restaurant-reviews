@@ -9,7 +9,7 @@
             {% for category in categories %}
                 <div class="row mt-2 mb-2">
                     <div class="col">
-                        <a href="{{ url_for('get_restaurants', category_name=category.type) }}">{{ category.type }}</a>
+                        <a class="badge bg-success text-decoration-none" href="{{ url_for('get_restaurants', category_name=category.type) }}">{{ category.type }}</a>
                     </div>
                     {% if admin == "yes" %}
                         <div class="col">
