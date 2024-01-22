@@ -31,24 +31,16 @@ def check_admin(user_id):
 @app.route("/")
 @app.route("/index")
 def index():
-    admin=""
-    user_id = session.get('user')
-    if user_id:
-        admin = check_admin(user_id)
     featured_restaurants = list(mongo.db.restaurants.find({"featured": True}))
-    return render_template("index.html", featured_restaurants=featured_restaurants, admin=admin)
+    return render_template("index.html", featured_restaurants=featured_restaurants)
 
 
 # index page search for restaurants function
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    admin=""
-    user_id = session.get('user')
-    if user_id:
-        admin = check_admin(user_id)
     query = request.form.get("query")
     restaurants = list(mongo.db.restaurants.find({"$text": {"$search": query}}))
-    return render_template("index.html", restaurants=restaurants, admin=admin)
+    return render_template("index.html", restaurants=restaurants)
 
 
 # edit restaurant details function
@@ -150,8 +142,12 @@ def delete_restaurant(restaurant_id):
 # get all categories
 @app.route("/get_categories")
 def get_categories():
+    admin = ""
+    user_id = session.get('user')
+    if user_id:
+        admin = check_admin(user_id)
     categories = list(mongo.db.restaurant_types.find().sort("type", 1))
-    return render_template("categories.html", categories=categories)
+    return render_template("categories.html", categories=categories, admin=admin)
 
 
 # display restaurants for a particular category/cuisine

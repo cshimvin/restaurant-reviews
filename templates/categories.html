@@ -11,16 +11,20 @@
                     <div class="col">
                         <a href="{{ url_for('get_restaurants', category_name=category.type) }}">{{ category.type }}</a>
                     </div>
-                    <div class="col">
-                        <a href="{{ url_for('edit_category', category_id=category._id) }}" class="btn btn-primary btn-sm">Edit  <i class="fa-solid fa-pen"></i></a>
-                        <a href="{{ url_for('delete_category', category_id=category._id) }}" class="btn btn-danger btn-sm">Delete <i class="fa-solid fa-trash"></i></a>
-                    </div>
+                    {% if admin == "yes" %}
+                        <div class="col">
+                            <a href="{{ url_for('edit_category', category_id=category._id) }}" class="btn btn-primary btn-sm">Edit  <i class="fa-solid fa-pen"></i></a>
+                            <a href="{{ url_for('delete_category', category_id=category._id) }}" class="btn btn-danger btn-sm">Delete <i class="fa-solid fa-trash"></i></a>
+                        </div>
+                    {% endif %}
                 </div>
             {% endfor %}
-        <div class="row">
-            <div class="col mb-2 mt-2">
-                <a href="{{ url_for('add_category') }}" class="btn btn-primary">Add Category <i class="fa-solid fa-circle-plus"></i></a>
+            {% if admin == "yes" %}
+                <div class="row">
+                    <div class="col mb-2 mt-2">
+                        <a href="{{ url_for('add_category') }}" class="btn btn-primary">Add Category <i class="fa-solid fa-circle-plus"></i></a>
+                    </div>
+                </div>
+            {% endif %}
             </div>
-        </div>
-    </div>
 {% endblock %}
