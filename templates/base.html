@@ -28,7 +28,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Admin</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">User admin</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('user_admin') }}">User admin</a></li>
                             <li><a class="dropdown-item" href="{{ url_for('add_restaurant') }}">Add Restaurant</a></li>
                             <li><a class="dropdown-item" href="{{ url_for('add_category') }}">Add Category</a></li>
                         </ul>

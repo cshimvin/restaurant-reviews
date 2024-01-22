@@ -180,14 +180,14 @@ def add_review(restaurant_id):
         return redirect(url_for("log_in"))
 
 
-@app.route("/users")
-def get_users():
-    return render_template("users.html")
-
-
 @app.route("/user_admin")
 def user_admin():
-    return render_template("user_admin.html")
+    user_id = session.get('user')
+    if user_id:
+        users = list(mongo.db.users.find().sort("username", 1))
+        return render_template("user_admin.html", users=users)
+    else:
+        return redirect(url_for("log_in"))
 
 
 @app.route("/register", methods=["GET", "POST"])
