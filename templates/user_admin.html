@@ -5,8 +5,8 @@
             <div class="row">
                 <h1>User Administration</h1>
             </div>
-            <hr class="w-100">
         {% for user in users %}
+        <hr class="w-100">
             <div class="row mt-2 mb-2">
                 <div class="col">
                     <p>{{ user.username }}</p>
@@ -18,11 +18,11 @@
                 </div>
                 <div class="col">
                     {% if user.is_admin == "yes" %}
-                        <a href="{{ url_for('toggle_admin', user_id=user._id, admin_status='demote') }}" class="btn btn-primary">Remove Admin</a>
+                        <a href="{{ url_for('toggle_admin', user_id=user._id, admin_status='demote') }}" class="btn btn-primary btn-sm">Remove Admin</a>
                     {% else %}
-                        <a href="{{ url_for('toggle_admin', user_id=user._id, admin_status='promote') }}" class="btn btn-primary">Make Admin</a>
+                        <a href="{{ url_for('toggle_admin', user_id=user._id, admin_status='promote') }}" class="btn btn-primary btn-sm">Make Admin</a>
                     {% endif %}
-                    <a href="{{ url_for('delete_user', user_id=user._id) }}" class="btn btn-danger">Delete</a>
+                    <a href="{{ url_for('delete_user', user_id=user._id) }}" class="btn btn-danger btn-sm">Delete</a>
                 </div>
             </div>
         {% endfor %}
