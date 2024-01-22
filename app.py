@@ -31,16 +31,24 @@ def check_admin(user_id):
 @app.route("/")
 @app.route("/index")
 def index():
+    admin=""
+    user_id = session.get('user')
+    if user_id:
+        admin = check_admin(user_id)
     featured_restaurants = list(mongo.db.restaurants.find({"featured": True}))
-    return render_template("index.html", featured_restaurants=featured_restaurants)
+    return render_template("index.html", featured_restaurants=featured_restaurants, admin=admin)
 
 
 # index page search for restaurants function
 @app.route("/search", methods=["GET", "POST"])
 def search():
+    admin=""
+    user_id = session.get('user')
+    if user_id:
+        admin = check_admin(user_id)
     query = request.form.get("query")
     restaurants = list(mongo.db.restaurants.find({"$text": {"$search": query}}))
-    return render_template("index.html", restaurants=restaurants)
+    return render_template("index.html", restaurants=restaurants, admin=admin)
 
 
 # edit restaurant details function
@@ -115,10 +123,28 @@ def add_restaurant():
 # display a particular restaurant
 @app.route("/display_restaurant/<restaurant_id>")
 def display_restaurant(restaurant_id):
+    admin=""
+    user_id = session.get('user')
+    if user_id:
+        admin = check_admin(user_id)
     restaurant = mongo.db.restaurants.find_one({"_id": ObjectId(restaurant_id)})
     reviews = list(mongo.db.reviews.find({"restaurant_id": restaurant_id}))
-    print(reviews)
-    return render_template("display_restaurant.html", restaurant=restaurant, reviews=reviews)
+    return render_template("display_restaurant.html", restaurant=restaurant, reviews=reviews, admin=admin)
+
+
+# delete a specified restaurant
+@app.route("/delete_restaurant/<restaurant_id>")
+def delete_restaurant(restaurant_id):
+    user_id = session.get('user')
+    if user_id:
+        admin = check_admin(user_id)
+        if admin == "yes":
+            mongo.db.restaurants.delete_one({"_id": ObjectId(restaurant_id)})
+            message = "Restaurant Successfully Deleted"
+            restaurants = list(mongo.db.restaurants.find().sort("type", 1))
+            return render_template("restaurants.html", message=message, restaurants=restaurants)
+        return redirect(url_for("not_authorised"))
+    return redirect(url_for("log_in"))
 
 
 # get all categories
