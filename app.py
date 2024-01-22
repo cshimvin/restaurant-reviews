@@ -349,7 +349,8 @@ def log_in():
                         session["user"] = request.form.get("username").lower()
                         message = "Welcome, {}".format(
                             request.form.get("username"))
-                        return render_template("index.html", message=message)
+                        featured_restaurants = list(mongo.db.restaurants.find({"featured": True}))
+                        return render_template("index.html", message=message, featured_restaurants=featured_restaurants)
             else:
                 # invalid password match
                 message = "Incorrect Username and/or Password"
