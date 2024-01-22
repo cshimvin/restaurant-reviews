@@ -33,8 +33,8 @@
                                         {{ restaurant.postcode }}
                                     </li>
                                 </ul>
-                                <p class="text=center"><a href="{{ url_for('display_restaurant', restaurant_id=restaurant._id) }}" class="btn btn-primary btn-sm">View reviews <i class="fa-solid fa-eye"></i></a>
-                                <a href="{{ url_for('add_review', restaurant_id=restaurant._id) }}" class="btn btn-primary btn-sm">Write a review <i class="fa-solid fa-pencil"></i></a></p>
+                                <p class="text-center"><a href="{{ url_for('display_restaurant', restaurant_id=restaurant._id) }}" class="btn btn-success btn-sm mt-2">View reviews <i class="fa-solid fa-eye"></i></a>
+                                <a href="{{ url_for('add_review', restaurant_id=restaurant._id) }}" class="btn btn-success btn-sm mt-2">Write a review <i class="fa-solid fa-pencil"></i></a></p>
                             </div>
                         </div>
                     {% endfor %}

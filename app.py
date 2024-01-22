@@ -134,6 +134,8 @@ def delete_restaurant(restaurant_id):
             mongo.db.restaurants.delete_one({"_id": ObjectId(restaurant_id)})
             message = "Restaurant Successfully Deleted"
             restaurants = list(mongo.db.restaurants.find().sort("type", 1))
+            # clean up reviews linked to deleted restaurant
+            mongo.db.reviews.delete_many({"restaurant_id": restaurant_id})
             return render_template("restaurants.html", message=message, restaurants=restaurants)
         return redirect(url_for("not_authorised"))
     return redirect(url_for("log_in"))

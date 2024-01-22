@@ -43,6 +43,11 @@
         {% else %}
             <h3>No reviews found</h3>
         {% endif %}
+        <div class="row">
+            <div class="col">
+                <a href="{{ url_for('add_review', restaurant_id=restaurant._id) }}" class="btn btn-success btn-sm">Write a review <i class="fa-solid fa-pencil"></i></a>
+            </div>
+        </div>
     </div>
     <!-- Deletion confirmation Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
