@@ -22,7 +22,7 @@
         {% if admin == "yes" %}
             <div class="row">  
                 <p class="mt-4"><a href="{{ url_for('edit_restaurant', restaurant_id=restaurant._id) }}" class="btn btn-primary btn-sm">Edit <i class="fa-solid fa-pencil"></i></a>
-                <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete <i class="fa-solid fa-trash"></i></a></p>
+                <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete <i class="fa-solid fa-trash"></i></a></p>
             </div>
         {% endif %}
         <div class="row">
@@ -44,8 +44,8 @@
             <h3>No reviews found</h3>
         {% endif %}
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Deletion confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
