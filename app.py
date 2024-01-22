@@ -247,6 +247,11 @@ def logout():
     return redirect(url_for("log_in", message="Logged out"))
 
 
+@app.route("/not_authorised")
+def not_authorised():
+    return render_template("not_authorised.html")
+
+
 # set debug to false when operational
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
