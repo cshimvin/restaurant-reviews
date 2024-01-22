@@ -185,6 +185,11 @@ def get_users():
     return render_template("users.html")
 
 
+@app.route("/user_admin")
+def user_admin():
+    return render_template("user_admin.html")
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
