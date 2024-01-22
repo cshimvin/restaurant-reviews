@@ -190,6 +190,14 @@ def user_admin():
         return redirect(url_for("log_in"))
 
 
+@app.route("/delete_user/<user_id>")
+def delete_user(user_id):
+    mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+    message = "User Successfully Deleted"
+    users = list(mongo.db.users.find().sort("username", 1))
+    return render_template("user_admin.html", message=message, users=users)
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
