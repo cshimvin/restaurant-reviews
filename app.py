@@ -188,16 +188,13 @@ def add_review(restaurant_id):
 @app.route("/user_admin")
 def user_admin():
     user_id = session.get('user')
-    admin = check_admin(user_id)
-    print(admin)
     if user_id:
+        admin = check_admin(user_id)
         if admin == "yes":
             users = list(mongo.db.users.find().sort("username", 1))
             return render_template("user_admin.html", users=users)
-        else:
-            return redirect(url_for("not_authorised"))
-    else:
-        return redirect(url_for("log_in"))
+        return redirect(url_for("not_authorised"))
+    return redirect(url_for("log_in"))
 
 
 @app.route("/delete_user/<user_id>")
