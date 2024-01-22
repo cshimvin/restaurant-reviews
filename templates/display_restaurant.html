@@ -17,6 +17,14 @@
                 </p>
             </div>
         </div>
+        
+        <!-- Show admin buttons if admin is logged in -->
+        {% if admin == "yes" %}
+            <div class="row">  
+                <p class="mt-4"><a href="{{ url_for('edit_restaurant', restaurant_id=restaurant._id) }}" class="btn btn-primary btn-sm">Edit <i class="fa-solid fa-pencil"></i></a>
+                <a href="#" class="btn btn-danger btn-sm">Delete <i class="fa-solid fa-trash"></i></a></p>
+            </div>
+        {% endif %}
         <div class="row">
             <hr class="w-100">
             <h2>Reviews</h2>

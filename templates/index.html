@@ -53,8 +53,12 @@
                                             {{ restaurant.postcode }}
                                         </li>
                                     </ul>
-                                    <p class="m-2"><a href="{{ url_for('edit_restaurant', restaurant_id=restaurant._id) }}" class="btn btn-primary btn-sm">Edit <i class="fa-solid fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-danger btn-sm">Delete <i class="fa-solid fa-trash"></i></a></p>
+
+                                    <!-- Show admin buttons if admin is logged in -->
+                                    {% if admin == "yes" %}
+                                        <p class="m-2"><a href="{{ url_for('edit_restaurant', restaurant_id=restaurant._id) }}" class="btn btn-primary btn-sm">Edit <i class="fa-solid fa-pencil"></i></a>
+                                        <a href="#" class="btn btn-danger btn-sm">Delete <i class="fa-solid fa-trash"></i></a></p>
+                                    {% endif %}
                                     <p class="m-2"><a href="{{ url_for('display_restaurant', restaurant_id=restaurant._id) }}" class="btn btn-success btn-sm">View reviews <i class="fa-solid fa-eye"></i></a>
                                     <a href="{{ url_for('add_review', restaurant_id=restaurant._id) }}" class="btn btn-success btn-sm">Write a review <i class="fa-solid fa-pencil"></i></a></p>
                                 </div>
@@ -91,8 +95,12 @@
                                             {{ featured.postcode }}
                                         </li>
                                     </ul>
-                                    <p class="m-2"><a href="{{ url_for('edit_restaurant', restaurant_id=featured._id) }}" class="btn btn-primary btn-sm">Edit <i class="fa-solid fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-danger btn-sm">Delete <i class="fa-solid fa-trash"></i></a></p>
+
+                                    <!-- Show admin buttons if admin is logged in -->
+                                    {% if admin == "yes" %}
+                                        <p class="m-2"><a href="{{ url_for('edit_restaurant', restaurant_id=featured._id) }}" class="btn btn-primary btn-sm">Edit <i class="fa-solid fa-pencil"></i></a>
+                                        <a href="#" class="btn btn-danger btn-sm">Delete <i class="fa-solid fa-trash"></i></a></p>
+                                    {% endif %}
                                     <p class="m-2"><a href="{{ url_for('display_restaurant', restaurant_id=featured._id) }}" class="btn btn-success btn-sm">View reviews <i class="fa-solid fa-eye"></i></a>
                                     <a href="{{ url_for('add_review', restaurant_id=featured._id) }}" class="btn btn-success btn-sm">Write a review <i class="fa-solid fa-pencil"></i></a></p>
                                 </div>

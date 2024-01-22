@@ -131,8 +131,12 @@ def get_categories():
 # display restaurants for a particular category/cuisine
 @app.route("/restaurants/<category_name>")
 def get_restaurants(category_name):
+    admin = ""
+    user_id = session.get('user')
+    if user_id:
+        admin = check_admin(user_id)
     restaurants = list(mongo.db.restaurants.find({"type": category_name}))
-    return render_template("restaurants.html", restaurants=restaurants, category_name=category_name)
+    return render_template("restaurants.html", restaurants=restaurants, category_name=category_name, admin=admin)
 
 
 # add a category
