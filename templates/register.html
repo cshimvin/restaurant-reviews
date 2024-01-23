@@ -12,11 +12,11 @@
         </div>
         <form action="{{ url_for('register') }}" method="POST">
             <div class="row form-floating mb-3">
-                <input type="text" class="form-control" id="username" name="username" minlength="3" maxlength="10" required>
+                <input type="text" class="form-control" id="username" name="username" minlength="5" maxlength="10" pattern="^[a-zA-Z0-9]{5,10}$"data-toggle="tooltip" data-placement="auto" title="Username should be 5-15 characters with no spaces or special characters." required>
                 <label for="username">Username</label>
                 </div>
                 <div class="row form-floating mb-3">
-                <input type="password" class="form-control" id="password1" name="password1" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" required>
+                <input type="password" class="form-control" id="password1" name="password1" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" data-toggle="tooltip" data-placement="auto" title="Password should be 5-15 characters with no spaces or special characters." required>
                 <label for="password1">Password</label>
                 </div>
                 <div class="row form-floating mb-3">
