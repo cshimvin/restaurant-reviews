@@ -73,7 +73,7 @@
                         {% for featured in featured_restaurants %}
                             <div class="col mt-2">
                                 <div class="card h-100">
-                                    <img src="{{ featured.image_url }}" alt="{{ featured.name }}">
+                                    <img src="{{ featured.image_url }}" alt="{{ featured.name }}" class="card-img-top">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ featured.name }}</h5>
                                         <p class="card-text">{{ featured.description }}</p>
