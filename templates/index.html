@@ -11,6 +11,8 @@
         </div>
     </div>
 
+    <!-- End heading title and image -->
+
     <div class="container">
         
         <!-- Search box -->
@@ -53,17 +55,15 @@
                                             {{ restaurant.postcode }}
                                         </li>
                                     </ul>
-                                    <p class="m-2 text-center"><a href="{{ url_for('display_restaurant', restaurant_id=restaurant._id) }}" class="btn btn-success btn-sm">View reviews <i class="fa-solid fa-eye"></i></a>
-                                    <a href="{{ url_for('add_review', restaurant_id=restaurant._id) }}" class="btn btn-success btn-sm">Write a review <i class="fa-solid fa-pencil"></i></a></p>
+                                    <p class="m-2 text-center"><a href="{{ url_for('display_restaurant', restaurant_id=restaurant._id) }}" class="btn btn-success btn-sm mt-2">View restaurant and reviews <i class="fa-solid fa-eye"></i></a>
+                                    <a href="{{ url_for('add_review', restaurant_id=restaurant._id) }}" class="btn btn-success btn-sm mt-2">Write a review <i class="fa-solid fa-pencil"></i></a></p>
                                 </div>
                             </div>
                         {% endfor %}
                     </div>
                 {% endif %}
-        </section>
 
-        <!-- Featured restaurants -->
-        <section>
+            <!-- Featured restaurants -->
             {% if featured_restaurants|length > 0 %}
                 <div class="page-content p-4 mt-2">
                     <div class="row">
@@ -89,8 +89,8 @@
                                             {{ featured.postcode }}
                                         </li>
                                     </ul>
-                                    <p class="text-center m-2"><a href="{{ url_for('display_restaurant', restaurant_id=featured._id) }}" class="btn btn-success btn-sm">View reviews <i class="fa-solid fa-eye"></i></a>
-                                    <a href="{{ url_for('add_review', restaurant_id=featured._id) }}" class="btn btn-success btn-sm">Write a review <i class="fa-solid fa-pencil"></i></a></p>
+                                    <p class="text-center m-2"><a href="{{ url_for('display_restaurant', restaurant_id=featured._id) }}" class="btn btn-success btn-sm mt-2">View restaurant and reviews <i class="fa-solid fa-eye"></i></a>
+                                    <a href="{{ url_for('add_review', restaurant_id=featured._id) }}" class="btn btn-success btn-sm mt-2">Write a review <i class="fa-solid fa-pencil"></i></a></p>
                                 </div>
                             </div>
                         {% endfor %}

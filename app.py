@@ -1,4 +1,5 @@
-# Import Flash, PyMongo, password hash and BSON dependencies
+# Import Flash, PyMongo, password hash and BSON dependencies - taken from
+# https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+NRDB_L5+2022_Q3/courseware/9e2f12f5584e48acb3c29e9b0d7cc4fe/579bbf01edaf47938e6a860b8f08f275/
 import os
 from flask import Flask, render_template, url_for, redirect, request, session
 from flask_pymongo import PyMongo
@@ -376,6 +377,12 @@ def logout():
 @app.route("/not_authorised")
 def not_authorised():
     return render_template("not_authorised.html")
+
+
+# Display custom 404 page if page not found - code from https://zetbit.tech/categories/python/37/how-to-make-a-default-404-page-in-flask
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 
 # set debug to false when operational

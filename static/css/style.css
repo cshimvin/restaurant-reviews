@@ -40,6 +40,11 @@ nav {
     border-radius: 5px;
 }
 
+/* Resize image to 50% */
+.img-50 {
+    max-width: 50%;
+}
+
 /* Footer */
 
 footer {
