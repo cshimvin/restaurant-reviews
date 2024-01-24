@@ -354,6 +354,8 @@ def log_in():
                         message = "Welcome, {}".format(
                             request.form.get("username"))
                         featured_restaurants = list(mongo.db.restaurants.find({"featured": True}))
+                        if check_admin(request.form.get("username")) == "yes":
+                            session["admin"] = "yes"
                         return render_template("index.html", message=message, featured_restaurants=featured_restaurants)
             else:
                 # invalid password match
@@ -370,7 +372,12 @@ def log_in():
 @app.route("/logout")
 def logout():
     # remove user from session cookie
-    session.pop("user")
+    user_id = session.get('user')
+    if user_id:
+        session.pop("user")
+    admin = session.get('admin')
+    if admin == "yes":
+        session.pop("admin")
     return render_template("login.html", message="You have been logged out")
 
 
