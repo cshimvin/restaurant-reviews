@@ -7,10 +7,11 @@ body {
 }
 
 nav {
-    background-color: brown;
+    background-color: brown !important;
+    color: white;
 }
 
-.nav-title {
+.navbar-brand {
     color: rgba(255,255,255);
     font-family: "Kalam", sans-serif;
     margin-top: 0.5rem;
@@ -22,8 +23,8 @@ nav {
     text-decoration: none;
 }
 
-.navbar-light .navbar-nav .nav-link {
-    color: rgba(255,255,255);
+.nav-link, .navbar-toggler-icon {
+    color: rgba(255,255,255) !important;
 }
 
 .heading {
