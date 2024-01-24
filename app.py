@@ -41,7 +41,7 @@ def index():
 def search():
     query = request.form.get("query")
     restaurants = list(mongo.db.restaurants.find({"$text": {"$search": query}}))
-    return render_template("index.html", restaurants=restaurants)
+    return render_template("index.html", restaurants=restaurants, search="yes")
 
 
 # edit restaurant details function
@@ -246,7 +246,8 @@ def add_review(restaurant_id):
             }
             mongo.db.reviews.insert_one(review)
             message = "Review Successfully Added"
-            return render_template("display_restaurant.html", message=message, restaurant=restaurant)
+            reviews = list(mongo.db.reviews.find({"restaurant_id": restaurant_id}))
+            return render_template("display_restaurant.html", message=message, restaurant=restaurant, reviews=reviews)
         else:
             return redirect(url_for("log_in"))
     user_id = session.get('user')
