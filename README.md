@@ -19,7 +19,8 @@
 - Could Have
 - Won't Have (for now)
 4. [Technologies Used](#technologies-used)
-5. [Testing](#testing)
+5. [Database Structure](#database-structure)
+6. [Testing](#testing)
 - User stories tests
 - Functionality
 - HTML Validation
@@ -29,9 +30,9 @@
 - Accessibility and Performance
 - Browser Compatibility
 - Device Compatibility
-6. [Bugs](#bugs)
-7. [Deployment](#deployment)
-8. [Credits](#credits)
+7. [Bugs](#bugs)
+8. [Deployment](#deployment)
+9. [Credits](#credits)
 
 ## Testing
 

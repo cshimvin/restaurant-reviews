@@ -41,7 +41,8 @@ def index():
     Display featured restaurants on the homepage
     """
     featured_restaurants = list(mongo.db.restaurants.find({"featured": True}))
-    return render_template("index.html", featured_restaurants=featured_restaurants)
+    return render_template("index.html",
+                           featured_restaurants=featured_restaurants)
 
 
 # index page search for restaurants function
@@ -52,8 +53,10 @@ def search():
     """
     if request.form.get("query"):
         query = request.form.get("query")
-        restaurants = list(mongo.db.restaurants.find({"$text": {"$search": query}}))
-        return render_template("index.html", restaurants=restaurants, search="yes")
+        restaurants = list(mongo.db.restaurants.find(
+            {"$text": {"$search": query}}))
+        return render_template("index.html",
+                               restaurants=restaurants, search="yes")
     return redirect(url_for("index"))
 
 
@@ -68,7 +71,10 @@ def edit_restaurant(restaurant_id):
         admin = check_admin(user_id)
         if admin == "yes":
             if request.method == "POST":
-                is_featured = True if request.form.get("featured") == "on" else False
+                if request.form.get("featured") == "on":
+                    is_featured = True
+                else:
+                    is_featured = False
                 submit = {
                     "$set": {
                         "name": request.form.get("name"),
@@ -83,16 +89,22 @@ def edit_restaurant(restaurant_id):
                         "featured": is_featured
                     }
                 }
-                restaurant = mongo.db.restaurants.find_one({"_id": ObjectId(restaurant_id)})
-                mongo.db.restaurants.update_one({"_id": ObjectId(restaurant_id)}, submit)
-                cuisines = list(mongo.db.restaurant_types.find().sort("type", 1))
+                restaurant = mongo.db.restaurants.find_one(
+                    {"_id": ObjectId(restaurant_id)})
+                mongo.db.restaurants.update_one(
+                    {"_id": ObjectId(restaurant_id)}, submit)
+                cuisines = list(
+                    mongo.db.restaurant_types.find().sort("type", 1))
                 message = "Restaurant Successfully Updated"
                 return render_template("edit_restaurant.html",
-                    restaurant=restaurant, message=message, cuisines=cuisines)
-            restaurant = mongo.db.restaurants.find_one({"_id": ObjectId(restaurant_id)})
+                                       restaurant=restaurant, message=message,
+                                       cuisines=cuisines)
+            restaurant = mongo.db.restaurants.find_one(
+                {"_id": ObjectId(restaurant_id)})
             # Get list of restaurant types to populate the cuisine select list
             cuisines = list(mongo.db.restaurant_types.find().sort("type", 1))
-            return render_template("edit_restaurant.html", restaurant=restaurant, cuisines=cuisines)
+            return render_template("edit_restaurant.html",
+                                   restaurant=restaurant, cuisines=cuisines)
         return redirect(url_for("not_authorised"))
     return redirect(url_for("log_in"))
 
@@ -108,7 +120,10 @@ def add_restaurant():
         admin = check_admin(user_id)
         if admin == "yes":
             if request.method == "POST":
-                is_featured = True if request.form.get("featured") == "on" else False
+                if request.form.get("featured") == "on":
+                    is_featured = True
+                else:
+                    is_featured = False
                 submit = {
                         "name": request.form.get("name"),
                         "url": request.form.get("url"),
@@ -123,9 +138,11 @@ def add_restaurant():
                 }
                 mongo.db.restaurants.insert_one(submit)
                 message = "Restaurant Successfully Added"
-                cuisines = list(mongo.db.restaurant_types.find().sort("type", 1))
+                cuisines = list(
+                    mongo.db.restaurant_types.find().sort("type", 1))
                 print(request.form.get("featured"))
-                return render_template("add_restaurant.html", message=message, cuisines=cuisines)
+                return render_template("add_restaurant.html", message=message,
+                                       cuisines=cuisines)
             # Get list of restaurant types to populate the cuisine select list
             cuisines = list(mongo.db.restaurant_types.find().sort("type", 1))
             return render_template("add_restaurant.html", cuisines=cuisines)
@@ -143,18 +160,20 @@ def display_restaurant(restaurant_id):
     user_id = session.get('user')
     if user_id:
         admin = check_admin(user_id)
-    restaurant = mongo.db.restaurants.find_one({"_id": ObjectId(restaurant_id)})
+    restaurant = mongo.db.restaurants.find_one(
+        {"_id": ObjectId(restaurant_id)})
     reviews = list(mongo.db.reviews.find(
         {"restaurant_id": restaurant_id}).sort("review_date", -1))
     return render_template("display_restaurant.html", restaurant=restaurant,
-        reviews=reviews, admin=admin)
+                           reviews=reviews, admin=admin)
 
 
 # delete a specified restaurant
 @app.route("/delete_restaurant/<restaurant_id>")
 def delete_restaurant(restaurant_id):
     """
-    Check user is logged in as admin and delete restaurant and reviews from database
+    Check user is logged in as admin and delete restaurant
+    and reviews from database
     """
     user_id = session.get('user')
     if user_id:
@@ -165,7 +184,8 @@ def delete_restaurant(restaurant_id):
             restaurants = list(mongo.db.restaurants.find().sort("type", 1))
             # clean up reviews linked to deleted restaurant
             mongo.db.reviews.delete_many({"restaurant_id": restaurant_id})
-            return render_template("restaurants.html", message=message, restaurants=restaurants)
+            return render_template("restaurants.html", message=message,
+                                   restaurants=restaurants)
         return redirect(url_for("not_authorised"))
     return redirect(url_for("log_in"))
 
@@ -181,7 +201,8 @@ def get_categories():
     if user_id:
         admin = check_admin(user_id)
     categories = list(mongo.db.restaurant_types.find().sort("type", 1))
-    return render_template("categories.html", categories=categories, admin=admin)
+    return render_template("categories.html", categories=categories,
+                           admin=admin)
 
 
 # display restaurants for a particular category/cuisine
@@ -196,7 +217,7 @@ def get_restaurants(category_name):
         admin = check_admin(user_id)
     restaurants = list(mongo.db.restaurants.find({"type": category_name}))
     return render_template("restaurants.html", restaurants=restaurants,
-        category_name=category_name, admin=admin)
+                           category_name=category_name, admin=admin)
 
 
 # add a category
@@ -215,10 +236,14 @@ def add_category():
                 }
                 mongo.db.restaurant_types.insert_one(submit)
                 message = "Category Successfully Added"
-                categories = list(mongo.db.restaurant_types.find().sort("type", 1))
-                categories = list(mongo.db.restaurant_types.find().sort("type", 1))
-                categories = list(mongo.db.restaurant_types.find().sort("type", 1))
-                return render_template("categories.html", message=message, categories=categories)
+                categories = list(
+                    mongo.db.restaurant_types.find().sort("type", 1))
+                categories = list(
+                    mongo.db.restaurant_types.find().sort("type", 1))
+                categories = list(
+                    mongo.db.restaurant_types.find().sort("type", 1))
+                return render_template("categories.html", message=message,
+                                       categories=categories)
             return render_template("add_category.html")
         return redirect(url_for("not_authorised"))
     return redirect(url_for("log_in"))
@@ -228,7 +253,8 @@ def add_category():
 @app.route("/edit_category/<category_id>", methods=["GET", "POST"])
 def edit_category(category_id):
     """
-    Check user is logged in as admin, retrieve category and submit edited details
+    Check user is logged in as admin, retrieve category and submit edited
+    details
     """
     user_id = session.get('user')
     if user_id:
@@ -240,12 +266,15 @@ def edit_category(category_id):
                         "type": request.form.get("type")
                     }
                 }
-                # restaurant = mongo.db.restaurant_types.find_one({"_id": ObjectId(category_id)})
-                mongo.db.restaurant_types.update_one({"_id": ObjectId(category_id)}, submit)
-                categories = list(mongo.db.restaurant_types.find().sort("type", 1))
+                mongo.db.restaurant_types.update_one(
+                    {"_id": ObjectId(category_id)}, submit)
+                categories = list(
+                    mongo.db.restaurant_types.find().sort("type", 1))
                 message = "Category Successfully Updated"
-                return render_template("categories.html", message=message, categories=categories)
-            category = mongo.db.restaurant_types.find_one({"_id": ObjectId(category_id)})
+                return render_template("categories.html", message=message,
+                                       categories=categories)
+            category = mongo.db.restaurant_types.find_one(
+                {"_id": ObjectId(category_id)})
             # Get list of restaurant types to populate the cuisine select list
             return render_template("edit_category.html", category=category)
         return redirect(url_for("not_authorised"))
@@ -256,16 +285,19 @@ def edit_category(category_id):
 @app.route("/delete_category/<category_id>")
 def delete_category(category_id):
     """
-    Check user is logged in as admin and delete submitted category from the category collection
+    Check user is logged in as admin and delete submitted category from the
+    category collection
     """
     user_id = session.get('user')
     if user_id:
         admin = check_admin(user_id)
         if admin == "yes":
-            mongo.db.restaurant_types.delete_one({"_id": ObjectId(category_id)})
+            mongo.db.restaurant_types.delete_one(
+                {"_id": ObjectId(category_id)})
             message = "Category Successfully Deleted"
             categories = list(mongo.db.restaurant_types.find().sort("type", 1))
-            return render_template("categories.html", message=message, categories=categories)
+            return render_template("categories.html", message=message,
+                                   categories=categories)
         return redirect(url_for("not_authorised"))
     return redirect(url_for("log_in"))
 
@@ -279,7 +311,8 @@ def add_review(restaurant_id):
     if request.method == "POST":
         user_id = session.get('user')
         if user_id:
-            restaurant = mongo.db.restaurants.find_one({"_id": ObjectId(restaurant_id)})
+            restaurant = mongo.db.restaurants.find_one(
+                {"_id": ObjectId(restaurant_id)})
             now = datetime.now()
             review = {
                 "title": request.form.get("title"),
@@ -293,14 +326,16 @@ def add_review(restaurant_id):
             }
             mongo.db.reviews.insert_one(review)
             message = "Review Successfully Added"
-            reviews = list(mongo.db.reviews.find({"restaurant_id": restaurant_id}))
+            reviews = list(mongo.db.reviews.find(
+                {"restaurant_id": restaurant_id}))
             return render_template("display_restaurant.html", message=message,
-                restaurant=restaurant, reviews=reviews)
+                                   restaurant=restaurant, reviews=reviews)
         else:
             return redirect(url_for("log_in"))
     user_id = session.get('user')
     if user_id:
-        restaurant = mongo.db.restaurants.find_one({"_id": ObjectId(restaurant_id)})
+        restaurant = mongo.db.restaurants.find_one(
+            {"_id": ObjectId(restaurant_id)})
         return render_template("add_review.html", restaurant=restaurant)
     else:
         return redirect(url_for("log_in"))
@@ -327,7 +362,8 @@ def user_admin():
 @app.route("/delete_user/<user_id>")
 def delete_user(user_id):
     """
-    Check user is logged in as admin and delete a user from the users collection
+    Check user is logged in as admin and delete a user from the users
+    collection
     """
     current_user = session.get('user')
     if current_user:
@@ -336,7 +372,8 @@ def delete_user(user_id):
             mongo.db.users.delete_one({"_id": ObjectId(user_id)})
             message = "User Successfully Deleted"
             users = list(mongo.db.users.find().sort("username", 1))
-            return render_template("user_admin.html", message=message, users=users)
+            return render_template("user_admin.html", message=message,
+                                   users=users)
         return redirect(url_for("not_authorised"))
     return redirect(url_for("log_in"))
 
@@ -345,7 +382,8 @@ def delete_user(user_id):
 @app.route("/toggle_admin/<user_id>/<admin_status>")
 def toggle_admin(user_id, admin_status):
     """
-    Check user is logged in as admin and change a users admin status in the database
+    Check user is logged in as admin and change a users admin status in the
+    database
     """
     admin_id = session.get('user')
     if admin_id:
@@ -367,7 +405,8 @@ def toggle_admin(user_id, admin_status):
             mongo.db.users.update_one({"_id": ObjectId(user_id)}, submit)
             message = "User Successfully Updated"
             users = list(mongo.db.users.find().sort("username", 1))
-            return render_template("user_admin.html", message=message, users=users)
+            return render_template("user_admin.html", message=message,
+                                   users=users)
         return redirect(url_for("not_authorised"))
     return redirect(url_for("log_in"))
 
@@ -380,7 +419,8 @@ def register():
     """
     if request.method == "POST":
         # check if username already exists in db
-        existing_user = mongo.db.users.find_one({"username": request.form.get("username").lower()})
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
         if existing_user:
             message = "Username already exists"
             return render_template("register.html", message=message)
@@ -405,23 +445,26 @@ def register():
 @app.route("/log_in", methods=["GET", "POST"])
 def log_in():
     """
-    Check submitted user exists in the users table and that the password matches.
+    Check submitted user exists in the users table and that the password
+    matches.
     Set a session cookie if login is successful
     """
     if request.method == "POST":
         # check user exists
-        existing_user = mongo.db.users.find_one({"username": request.form.get("username").lower()})
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
         if existing_user:
             # ensure hashed password matches user input
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
                 message = f"Welcome, {request.form.get("username")}"
-                featured_restaurants = list(mongo.db.restaurants.find({"featured": True}))
+                feat_restaurants = list(
+                    mongo.db.restaurants.find({"featured": True}))
                 if check_admin(request.form.get("username")) == "yes":
                     session["admin"] = "yes"
                 return render_template("index.html", message=message,
-                    featured_restaurants=featured_restaurants)
+                                       featured_restaurants=feat_restaurants)
             else:
                 # invalid password match
                 message = "Incorrect Username and/or Password"
@@ -451,8 +494,9 @@ def logout():
 # Display not authorised page
 @app.route("/not_authorised")
 def not_authorised():
-    """ 
-    Display the not_authorised.html page if user tries to access a page which is admin only
+    """
+    Display the not_authorised.html page if user tries to access a page which
+    is admin only
     """
     return render_template("not_authorised.html")
 
@@ -462,7 +506,9 @@ def not_authorised():
 def page_not_found(e):
     """
     Display custom 404 page if page not found.
-    Code from https://zetbit.tech/categories/python/37/how-to-make-a-default-404-page-in-flask
+    Code from:
+    https://zetbit.tech/categories/python/37/
+    how-to-make-a-default-404-page-in-flask
     """
     return render_template('404.html'), 404
 
