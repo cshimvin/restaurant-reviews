@@ -50,9 +50,11 @@ def search():
     """
     Query restaurant collection with user search
     """
-    query = request.form.get("query")
-    restaurants = list(mongo.db.restaurants.find({"$text": {"$search": query}}))
-    return render_template("index.html", restaurants=restaurants, search="yes")
+    if request.form.get("query"):
+        query = request.form.get("query")
+        restaurants = list(mongo.db.restaurants.find({"$text": {"$search": query}}))
+        return render_template("index.html", restaurants=restaurants, search="yes")
+    return redirect(url_for("index"))
 
 
 # edit restaurant details function
