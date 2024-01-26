@@ -1,6 +1,6 @@
 # Milestone Project 3: Restaurant Reviews Site
 
-![Website shown on various devices](static/images/responsive.jpg)
+![Website shown on various devices](static/images/documentation/responsive.jpg)
 
 ## Live Project
 
@@ -32,3 +32,25 @@
 6. [Bugs](#bugs)
 7. [Deployment](#deployment)
 8. [Credits](#credits)
+
+## Testing
+
+### User stories tests
+
+### Functionality
+
+### HTML Validation
+
+All pages were tested using the [W3C HTML validator](https://validator.w3.org/nu/) and no errors were found. The results are in the attached [PDF document](/static/images/documentation/html-validation.pdf).
+
+### CSS Validation
+
+The CSS stylesheet styles.css was checked using the [W3C CSS validator](https://validator.w3.org/) and no errors were found. The results can be found in the [attached image](/static/images/documentation/css-validation.png).
+
+### Accessibility and Performance
+
+### Browser Compatibility
+
+### Device Compatibility
+
+### Check links work
