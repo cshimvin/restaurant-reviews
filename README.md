@@ -139,6 +139,64 @@ TBC
 
 ## Database Structure
 
+I used MongoDB, a non-relational database architecture.
+
+The database is named __restaurant_review__ which has 4 collections as follows:
+
+### restaurant_types
+
+This contains a record of the types of restaurants/cuisines that a restaurant would be categorised as
+
+| Key  | Type       | Comment                 |
+|------|------------|-------------------------|
+| _id  | ObjectId() | Automatically generated |
+| type | String     |                         |
+
+### restaurants
+
+This contains details of the restaurants.
+
+| Key         | Type       | Comment                                |
+|-------------|------------|----------------------------------------|
+| _id         | ObjectId() | Automatically generated                |
+| name        | String     |                                        |
+| url         | String     |                                        |
+| type        | String     | Taken from restaurant_types collection |
+| address     | String     |                                        |
+| town        | String     |                                        |
+| county      | String     |                                        |
+| postcode    | String     |                                        |
+| description | String     |                                        |
+| image_url   | String     |                                        |
+| featured    | Boolean    |                                        |
+
+### reviews
+
+This contains the reviews of the restaurants. It uses resturant_id to refer to the _id in the restaurants table which acts as a foreign key.
+
+| Key            | Type       | Comment                                     |
+|----------------|------------|---------------------------------------------|
+| _id            | ObjectId() | Automatically generated                     |
+| title          | String     |                                             |
+| review_date    | String     |                                             |
+| user_id        | String     |                                             |
+| food_rating    | Int32      |                                             |
+| service_rating | Int32      |                                             |
+| overall_rating | Int32      |                                             |
+| restaurant_id  | String     | _id of restaurant in restaurants collection |
+| review_content | String     |                                             |
+
+### users
+
+Collection of users including their username, hashed password and indication if they are an administrator or not.
+
+| Key      | Type       | Comment                 |
+|----------|------------|-------------------------|
+| _id      | ObjectId() | Automatically generated |
+| username | String     |                         |
+| password | String     | sha56 hashed password   |
+| is_admin | String     | yes or no               |
+
 ## Testing
 
 ### User stories tests
