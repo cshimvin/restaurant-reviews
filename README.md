@@ -110,7 +110,10 @@ I chose the following typography:
 
 ### Wireframes
 
-TBC
+Wireframes of the initial design can be found in the following wireframes:
+
+- [Mobile wireframes](/static/images/documentation/restaurant-reviews-mobile-wireframes.pdf)
+- [Desktop wireframes](/static/images/documentation/restaurant-reviews-desktop-wireframes.pdf)
 
 ## Features
 
