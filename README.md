@@ -247,6 +247,14 @@ Lighthouse reports were also created which passed accessibility except sequentia
 
 ### Browser Compatibility
 
+The website has been tested on the follwing browsers:
+
+- Google Chrome 120.0.6099.225 (Official Build) (64 bit)
+- Mozilla Firefox 122.0 (64-bit)
+- Microsoft Edge Version 121.0.2277.83 (Official build) (64-bit)
+
+The layout, functionality and website works on all the above browsers.
+
 ### Device Compatibility
 
 The responsiveness and layout of the site has been tested on a number of devices including tablets, desktops and mobile phones from iPhone 5 to 5K screens and the website displays correctly.
