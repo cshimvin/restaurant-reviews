@@ -10,7 +10,7 @@
 1. [Project Goals](#project-goals)
 - Business Goals
 - User Goals
-- Adminstrator Goals
+- Administrator Goals
 2. [User Experience](#user-experience)
 - User Stories
 - Design and Structure
@@ -77,7 +77,7 @@ Returning visitor goals
 - As a returning visitor, I would like to add my reviews for restaurants I have visited.
 
 Frequent visitor goals:
-- As a frequent visitor, I would like to keep up to date with featured restaurants and any new restuarants and reviews.
+- As a frequent visitor, I would like to keep up to date with featured restaurants and any new restaurants and reviews.
 
 ### Design and Structure
 
@@ -85,7 +85,7 @@ The website consists of a number of pages which have a consistent structure and 
 
 The main goal of the site is to show users restaurants available in Wales and real user reviews about them.
 
-The website allows users to search for restaurants and reviews without logging in which should encourage users to regsiter an account and log in to leave their own reviews. This is why the log in and register links are consistently shown on the top navigation bar.
+The website allows users to search for restaurants and reviews without logging in which should encourage users to register an account and log in to leave their own reviews. This is why the log in and register links are consistently shown on the top navigation bar.
 
 Once logged in, users can add their own reviews for restaurants.
 
@@ -177,14 +177,14 @@ This is available to logged in administrators only. It allows a category to be a
 
 #### Add restaurant page
 
-This is available to logged in administrators only. It allows a restaurant to be added to the database with details including the name, URL, address, image, description and type. This also allows a restaurant to be featued on the homepage.
+This is available to logged in administrators only. It allows a restaurant to be added to the database with details including the name, URL, address, image, description and type. This also allows a restaurant to be featured on the homepage.
 
 ![Add restaurant](/static/images/documentation/add-restaurant.png)
 
 
 #### Edit a restaurant
 
-This is available to logged in administrators only. It allows a restaurant to be amended on the database. This follows the same format as the add restaurant page but completes the details that are extracted from the database. This also allows a restaurant to be featued on the homepage.
+This is available to logged in administrators only. It allows a restaurant to be amended on the database. This follows the same format as the add restaurant page but completes the details that are extracted from the database. This also allows a restaurant to be featured on the homepage.
 
 ![Edit restaurant](/static/images/documentation/edit-restaurant.png)
 
@@ -249,7 +249,7 @@ Features that could be implemented in future iterations:
 - [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) and [JQuery 3.3.1](https://jquery.com/) to create the functionality of the site
 - [Python](https://www.python.org/) was used as the back-end programming language.
 - [Gitpod](https://gitpod.io/) and [CodeAnywhere](https://codeanywhere.com/) were used as a cloud-based IDEs for development.
-- [Flask](https://flask.palletsprojects.com/en/3.0.x/) was used as the Python framework for the site togther with the [Jinja](https://jinja.palletsprojects.com/en/3.1.x/) template.
+- [Flask](https://flask.palletsprojects.com/en/3.0.x/) was used as the Python framework for the site together with the [Jinja](https://jinja.palletsprojects.com/en/3.1.x/) template.
 - [MongoDB](https://www.mongodb.com/) was used as the non-relational database management with Flask.
 - [Heroku](https://www.heroku.com/) was used for hosting the deployed back-end site.
 - [Balsamiq](https://balsamiq.com/) was used to create the project wireframes.
@@ -289,7 +289,7 @@ This contains details of the restaurants.
 
 ### reviews
 
-This contains the reviews of the restaurants. It uses resturant_id to refer to the _id in the restaurants table which acts as a foreign key.
+This contains the reviews of the restaurants. It uses restaurant_id to refer to the _id in the restaurants table which acts as a foreign key.
 
 | Key            | Type       | Comment                                     |
 |----------------|------------|---------------------------------------------|
@@ -409,7 +409,7 @@ Lighthouse reports were also created which passed accessibility except sequentia
 
 ### Browser Compatibility
 
-The website has been tested on the follwing browsers:
+The website has been tested on the following browsers:
 
 - Google Chrome 120.0.6099.225 (Official Build) (64 bit)
 - Mozilla Firefox 122.0 (64-bit)

@@ -513,7 +513,6 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 
-# set debug to false when operational
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
-            port=os.environ.get("PORT"), debug=True)
+            port=os.environ.get("PORT"), debug=False)
